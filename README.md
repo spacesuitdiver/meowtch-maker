@@ -7,7 +7,7 @@ Find your prrrfect pet.
 ## Sketch
 _To be added._
 
-## APIs used
+## APIs Used
 - Petfinder
 - Faceplusplus
 
