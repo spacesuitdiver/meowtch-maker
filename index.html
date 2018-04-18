@@ -3,23 +3,23 @@
 <head>
   <title>Meowtch Maker!</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
   <div class="container">
-    <div class="row">
-      <div class="col" id="header"></div>
-    </div>
-    <div class="row">
-      <div class="col-8" id="main"></div>
-      <div class="col-4" id="sidebar"></div>
-    </div>
+    <div id="main-view-outlet"></div>
+    <div id="capture-view-outlet"></div>
+  </div>
+  <div id="background-video">
+    <video autoplay muted loop>
+      <source src="videos/672646878.mp4" type="video/mp4">
+    </video>
   </div>
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="lib/faceplusplus.js"></script>
   <script type="text/javascript" src="lib/petfinder.js"></script>
-  <script type="text/javascript" src="components/header.js"></script>
-  <script type="text/javascript" src="components/main.js"></script>
-  <script type="text/javascript" src="components/sidebar.js"></script>
+  <script type="text/javascript" src="components/main-view.js"></script>
+  <script type="text/javascript" src="components/capture-view.js"></script>
 </body>
 </html>
