@@ -5,23 +5,25 @@ $(document).ready(function () {
   function render() {
     var webcamComponent = renderWebcam();
 
-    var viewElement = $(`<div class="view capture-view text-center">`);
-    viewElement.append(webcamComponent.element);
-    viewElement.append(`<h1 class="text-light">Take Your Photo</h1>`);
-    viewElement.append(`<p class="text-light">Let's find you some matches!</p>`);
+    var viewElement = $(`<div class="view capture-view">`);
+
+    var captureElement = $(`<div class="container text-center my-5">`);
+    captureElement.append(webcamComponent.element);
+    captureElement.append(`<h1 class="text-light">Take Your Photo</h1>`);
+    captureElement.append(`<p class="text-light">Let's find you some matches!</p>`);
 
     var captureButtonElement = $('<button class="btn btn-primary">Cachink!</button>');
     captureButtonElement.click(function() {
       var base64Image = webcamComponent.onCapture();
       userCardImageElement.attr('src' , base64Image);
     });
-    viewElement.append(captureButtonElement);
+    captureElement.append(captureButtonElement);
 
-    var comparisonElement = $('<div class="container mt-5">'); 
+    var comparisonElement = $('<div class="container my-5">'); 
     var comparisonRowElement = $('<div class="row justify-content-around">');
     comparisonElement.append(comparisonRowElement);
 
-    var userCardElement = $('<div class="card mx-2 col-md-4 p-0">');
+    var userCardElement = $('<div class="card mx-2">');
     var userCardImageElement = $('<img class="card-img-top">');
     var userCardBodyElement = $(`
       <div class="card-body">
@@ -34,8 +36,9 @@ $(document).ready(function () {
         </div>
     `);
     userCardElement.append(userCardImageElement, userCardBodyElement);
+    userCardElement = userCardElement.wrap('<div class="col-sm-5 mb-5">').parent();
 
-    var matchCardElement = $('<div class="card mx-2 col-md-4 p-0">');
+    var matchCardElement = $('<div class="card mx-2">');
     var matchCardImageElement = $('<img class="card-img-top">');
     var matchCardBodyElement = $(`
       <div class="card-body">
@@ -48,10 +51,11 @@ $(document).ready(function () {
         </div>
     `);
     matchCardElement.append(matchCardImageElement, matchCardBodyElement);
+    matchCardElement = matchCardElement.wrap('<div class="col-sm-5 mb-5">').parent();
 
     comparisonRowElement.append(userCardElement, matchCardElement);
 
-    viewElement.append(comparisonElement);
+    viewElement.append(captureElement, comparisonElement);
 
     viewOutlet.append(viewElement);
   }
