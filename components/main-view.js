@@ -1,34 +1,40 @@
 // ready here serves a dual purpose to wait for DOM and not to litter global namespace
 $(document).ready(function () {
+  var viewOutlet = $('#main-view-outlet');
 
-  var template = $('<div class="view main-view text-center">');
-  template.append('<img src="images/logo.gif" alt="" class="logo">');
-  template.append('<h1 class="text-light">Meowtch Maker!</h1>');
-  template.append('<p class="text-light">Find your prrrrfect match.</p>');
+  function render() {
+    var template = $('<div class="view main-view text-center">');
+    template.append('<img src="images/logo.gif" alt="" class="logo">');
+    template.append('<h1 class="text-light">Meowtch Maker!</h1>');
+    template.append('<p class="text-light">Find your prrrrfect match.</p>');
 
-  var readyButton = $('<button id="ready-button" class="btn btn-primary">Ready?</button>');
-  template.append(readyButton);
+    var readyButton = $('<button id="ready-button" class="btn btn-primary">Ready?</button>');
+    template.append(readyButton);
 
-  readyButton.click(function() {
-    window.location.hash = '/capture';
-  });
+    readyButton.click(function() {
+      window.location.hash = '/capture';
+    });
 
-  function init() {
-    route();
-    $('#main-view-outlet').append(template);
+    viewOutlet.append(template);
   }
 
+  // an easy "global" way to handle navigation state across views
   function route() {
     $(window).bind('hashchange', route);
 
     if (!window.location.hash) {
-      template.fadeIn();
+      viewOutlet.children('.view').fadeIn();
     } else {
-      template.hide();
+      viewOutlet.children('.view').hide();
     }
   };
 
-  init();  
+  function init() {
+    render();
+    route();
+  };
+
+  init();
 
 });
 
