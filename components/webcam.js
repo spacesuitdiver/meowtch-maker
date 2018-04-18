@@ -1,66 +1,48 @@
 // ready here serves a dual purpose to wait for DOM and not to litter global namespace
-$(document).ready(function() {
-  var template = `
-  <h3>sayy cheese!</h3>
-  <div class="camera">
-    <video id="video">Video stream not available.</video>
-    <button id="startbutton">Take photo</button>
-  </div>
-  <div class="output">
-    <img id="photo" alt="The screen capture will appear in this box.">
-  </div>
-  `;
+function renderWebcam() {
 
-  $("#webcam").append(template);
+  var camera = $('<div class="camera mb-3">');
+  var video = $('<video>Video stream not available.</video>');
+  camera.append(video);
 
-  var width = 320; // We will scale the photo width to this
+  var photo = $('<img id="photo" alt="The screen capture will appear in this box.">');
+
+  var width = 400; // We will scale the photo width to this
   var height = 0; // This will be computed based on the input stream
 
   var streaming = false;
+  var canvas = document.createElement("canvas");
 
-  var video = null;
-  var canvas = null;
-  var photo = null;
-  var startbutton = null;
+  function init() {
+    // video = document.getElementById("video");
+    // photo = document.getElementById("photo");
+    // startbutton = document.getElementById("startbutton");
 
-  function startup() {
-    video = document.getElementById("video");
-    canvas = document.createElement("canvas");
-    photo = document.getElementById("photo");
-    startbutton = document.getElementById("startbutton");
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
       .then(function(stream) {
-        video.srcObject = stream;
-        video.play();
+        video[0].srcObject = stream;
+        video[0].play();
       })
       .catch(function(err) {
         console.log("An error occured! " + err);
       });
-    video.addEventListener(
+
+    video[0].addEventListener(
       "canplay",
       function(e) {
-        if (e.target && e.target.id === "video") {
-          if (!streaming) {
-            height = video.videoHeight / (video.videoWidth / width);
-            video.setAttribute("width", width);
-            video.setAttribute("height", height);
-            canvas.setAttribute("width", width);
-            canvas.setAttribute("height", height);
-            streaming = true;
-          }
+        if (!streaming) {
+          height = video[0].videoHeight / (video[0].videoWidth / width);
+          video[0].setAttribute("width", width);
+          video[0].setAttribute("height", height);
+          canvas.setAttribute("width", width);
+          canvas.setAttribute("height", height);
+          streaming = true;
         }
       },
       false
     );
-    startbutton.addEventListener(
-      "click",
-      function(ev) {
-        takepicture();
-        ev.preventDefault();
-      },
-      false
-    );
+
     clearphoto();
   }
 
@@ -70,22 +52,31 @@ $(document).ready(function() {
     context.fillRect(0, 0, canvas.width, canvas.height);
 
     var data = canvas.toDataURL("image/png");
-    photo.setAttribute("src", data);
+    photo[0].setAttribute("src", data);
   }
 
   function takepicture() {
     var context = canvas.getContext("2d");
+
     if (width && height) {
       canvas.width = width;
       canvas.height = height;
-      context.drawImage(video, 0, 0, width, height);
+      context.drawImage(video[0], 0, 0, width, height);
 
       var data = canvas.toDataURL("image/png");
-      photo.setAttribute("src", data);
+
+      return data;
+
     } else {
       clearphoto();
     }
   }
 
-  startup();
-});
+  init();
+
+  return {
+    element: camera,
+    onCapture: takepicture, 
+  };
+
+}

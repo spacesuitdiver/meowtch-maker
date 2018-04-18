@@ -4,9 +4,9 @@ $(document).ready(function () {
 
   function render() {
     var template = $('<div class="view main-view text-center">');
-    template.append('<img src="images/logo.gif" alt="" class="logo">');
-    template.append('<h1 class="text-light">Meowtch Maker!</h1>');
-    template.append('<p class="text-light">Find your prrrrfect match.</p>');
+    template.append('<img src="images/logo.gif" alt="" class="logo mb-3">');
+    template.append('<h1 class="text-light">Meowtch Maker</h1>');
+    template.append('<p class="text-light">Find your prrrrfect pet.</p>');
 
     var readyButton = $('<button id="ready-button" class="btn btn-primary">Ready?</button>');
     template.append(readyButton);

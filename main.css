@@ -5,13 +5,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
+  width: 100%;
 }
 
 .main-view .logo {
   height: 250px;
   width: 250px;
   border-radius: 100%;
-  margin-bottom: 20px;
 }
 
 #background-video video {
@@ -31,4 +31,20 @@
   bottom: 0;
   right: 0;
   background: rgba(0,0,0,0.4);
+}
+
+.capture-view .camera {
+  display: inline-block;
+  border-radius: 100%;
+  overflow: hidden;
+  height: 280px;
+  width: 280px;
+  position: relative;
+}
+
+.capture-view .camera video {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%)
 }
