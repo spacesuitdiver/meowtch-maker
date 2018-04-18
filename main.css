@@ -1,0 +1,13 @@
+.header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.header .logo {
+  height: 250px;
+  width: 250px;
+  border-radius: 100%;
+  margin-bottom: 20px;
+}
