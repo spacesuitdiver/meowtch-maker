@@ -1,13 +1,33 @@
-.header {
+.view {
+  z-index: 10;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.header .logo {
+.main-view .logo {
   height: 250px;
   width: 250px;
   border-radius: 100%;
   margin-bottom: 20px;
+}
+
+#background-video video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    z-index: 0;
+}
+
+#background-video::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0,0,0,0.4);
 }
