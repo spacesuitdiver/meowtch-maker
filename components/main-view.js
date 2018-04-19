@@ -8,7 +8,7 @@ $(document).ready(function () {
     template.append('<h1 class="text-light">Meowtch Maker</h1>');
     template.append('<p class="text-light">Find your prrrrfect pet.</p>');
 
-    var readyButton = $('<button id="ready-button" class="btn btn-primary">Ready?</button>');
+    var readyButton = $('<button id="ready-button" class="btn-lg btn-primary mt-3">Ready?</button>');
     template.append(readyButton);
 
     readyButton.click(function() {
