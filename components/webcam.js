@@ -1,4 +1,7 @@
 // ready here serves a dual purpose to wait for DOM and not to litter global namespace
+
+var data;
+
 function renderWebcam() {
 
   var camera = $('<div class="camera mb-3">');
@@ -62,8 +65,8 @@ function renderWebcam() {
       canvas.width = width;
       canvas.height = height;
       context.drawImage(video[0], 0, 0, width, height);
-
-      var data = canvas.toDataURL("image/png");
+      //image data
+      var data = canvas.toDataURL();
 
       return data;
 
