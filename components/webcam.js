@@ -58,7 +58,7 @@ function renderWebcam() {
     photo[0].setAttribute("src", data);
   }
 
-  function takepicture() {
+  function capture() {
     var context = canvas.getContext("2d");
 
     if (width && height) {
@@ -79,7 +79,7 @@ function renderWebcam() {
 
   return {
     element: camera,
-    onCapture: takepicture, 
+    capture: capture, 
   };
 
 }

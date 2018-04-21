@@ -14,7 +14,8 @@ $(document).ready(function () {
 
     var captureButtonElement = $('<button class="btn-lg btn-primary mt-3">Cachink!</button>');
     captureButtonElement.click(function() {
-      var base64Image = webcamComponent.onCapture();
+      var base64Image = webcamComponent.capture();
+
       userCardImageElement.attr('src' , base64Image);
 
       getRandomPet('cat') // returns promise
