@@ -1,78 +1,104 @@
 // ready here serves a dual purpose to wait for DOM and not to litter global namespace
 $(document).ready(function () {
   var viewOutlet = $('#capture-view-outlet');
+  var viewElement = $(`<div class="view capture-view">`);
+  var webcamComponent = renderWebcam();
 
   function render() {
-    var webcamComponent = renderWebcam();
+    renderCapture().appendTo(viewElement);
 
-    var viewElement = $(`<div class="view capture-view">`);
+    return viewElement;
+  }
 
+  function renderCapture() {
     var captureElement = $(`<div class="container text-center my-5">`);
     captureElement.append(webcamComponent.element);
-    captureElement.append(`<h1 class="text-light">Take Your Picture</h1>`);
-    captureElement.append(`<p class="text-light">Let's find you a pal!</p>`);
+    captureElement.append(`<h1 class="text-light">Say Cheese!</h1>`);
+    captureElement.append(`<p class="text-light">And let's find your pal.</p>`);
 
+    renderCaptureButton().appendTo(captureElement);
+
+    return captureElement;
+  }
+
+  function renderCaptureButton() {
     var captureButtonElement = $('<button class="btn-lg btn-primary mt-3">Cachink!</button>');
-    captureButtonElement.click(function() {
-      var base64Image = webcamComponent.onCapture();
-      userCardImageElement.attr('src' , base64Image);
+    captureButtonElement.click(function () {
+      var base64ImageFromWebcam = webcamComponent.capture();
 
-      getRandomPet('cat') // returns promise
-      .then(function (image) {
-        console.log(image);
+      getRandomPet('cat')
+      .then(function(randomPetResponse) {
+        comparePetImageToHumanBase64(randomPetResponse.image, base64ImageFromWebcam)
+        .then(function(compareResponse) {
+          var human = {
+            name: 'You!',
+            image: base64ImageFromWebcam,
+            age: compareResponse.human.age,
+            gender: compareResponse.human.gender,
+            // emotion: compareResponse.human.emotion,
+          }
 
-        comparePetImageToHumanBase64(image, base64Image)
-        .then((res) => {
-          console.log(res);
+          var pet = {
+            name: randomPetResponse.name,
+            image: randomPetResponse.image,
+            age: randomPetResponse.age,
+            gender: randomPetResponse.gender,
+            // emotion: compareResponse.pet.emotion,
+          }
+
+          $('#comparison').remove();
+          renderComparison(human, pet).appendTo(viewElement);
+
         });
       })
-      .catch(console.error);
-
-
-
+     .catch(function (error) {
+        alert('oh noes something broke! just try again, the cats behind the counter will fix.');
+        console.error(error);
+     });
     });
-    captureElement.append(captureButtonElement);
 
-    var comparisonElement = $('<div class="container my-5">'); 
-    var comparisonRowElement = $('<div class="row justify-content-around">');
-    comparisonElement.append(comparisonRowElement);
-
-    var userCardElement = $('<div class="card mx-2">');
-    var userCardImageElement = $('<img class="card-img-top">');
-    var userCardBodyElement = $(`
-      <div class="card-body">
-        <h5 class"card-title">You!</h5>
-        <div class="card-text">
-          <ul>
-            <li>Age: 54</li>
-            <li>Weight: 200lbs</li>
-          </ul>
-        </div>
-    `);
-    userCardElement.append(userCardImageElement, userCardBodyElement);
-    userCardElement = userCardElement.wrap('<div class="col-sm-5 mb-5">').parent();
-
-    var matchCardElement = $('<div class="card mx-2">');
-    var matchCardImageElement = $('<img class="card-img-top">');
-    var matchCardBodyElement = $(`
-      <div class="card-body">
-        <h5 class"card-title">Fido</h5>
-        <div class="card-text">
-          <ul>
-            <li>Age: 54</li>
-            <li>Weight: 200lbs</li>
-          </ul>
-        </div>
-    `);
-    matchCardElement.append(matchCardImageElement, matchCardBodyElement);
-    matchCardElement = matchCardElement.wrap('<div class="col-sm-5 mb-5">').parent();
-
-    comparisonRowElement.append(userCardElement, matchCardElement);
-
-    viewElement.append(captureElement, comparisonElement);
-
-    viewOutlet.append(viewElement);
+    return captureButtonElement;
   }
+
+  function renderComparison(human, pet) {
+    // comparison cards
+    var comparisonElement = $('<div id="comparison" class="container my-5">'); 
+    var comparisonRowElement = $('<div class="row justify-content-around">');
+    comparisonRowElement.appendTo(comparisonElement);
+
+    renderCard(human).appendTo(comparisonRowElement); 
+    renderCard(pet).appendTo(comparisonRowElement); 
+
+    resultRowElement = $(`
+      <div class="row justify-center">
+        <marquee class="text-light"><h2>${matchAnalysis(human, pet)}</h2></marquee>
+      </div>
+    `);
+    resultRowElement.appendTo(comparisonElement);
+
+    return comparisonElement;
+  }
+
+  function renderCard(data) {
+    var cardElement = $(`
+      <div class="col-sm-5 mb-5">
+        <div class="card mx-2">
+          <img class="card-img-top" src="${data.image}">
+          <div class="card-body">
+            <h5 class"card-title">${data.name}</h5>
+            <div class="card-text">
+              <ul>
+                <li>Age: ${data.age}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+
+    return cardElement;
+  }
+
 
   // an easy "global" way to handle navigation state across views
   function route() {
@@ -86,7 +112,7 @@ $(document).ready(function () {
   };
 
   function init() {
-    render();
+    render().appendTo(viewOutlet);
     route();
   };
 
