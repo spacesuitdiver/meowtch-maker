@@ -16,6 +16,20 @@ $(document).ready(function () {
     captureButtonElement.click(function() {
       var base64Image = webcamComponent.onCapture();
       userCardImageElement.attr('src' , base64Image);
+
+      getRandomPet('cat') // returns promise
+      .then(function (image) {
+        console.log(image);
+
+        comparePetImageToHumanBase64(image, base64Image)
+        .then((res) => {
+          console.log(res);
+        });
+      })
+      .catch(console.error);
+
+
+
     });
     captureElement.append(captureButtonElement);
 
