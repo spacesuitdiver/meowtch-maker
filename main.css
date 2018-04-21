@@ -1,11 +1,16 @@
-.view {
+.view-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 10;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+}
+
+.view {
+  position: relative;
+  top: 0;
   display: none;
-  width: 100%;
 }
 
 .main-view .logo {
@@ -14,7 +19,7 @@
   border-radius: 100%;
 }
 
-#background-video video {
+#background-video {
     position: fixed;
     right: 0;
     bottom: 0;
