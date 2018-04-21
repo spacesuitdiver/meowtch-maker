@@ -9,8 +9,8 @@ $(document).ready(function () {
 
     var captureElement = $(`<div class="container text-center my-5">`);
     captureElement.append(webcamComponent.element);
-    captureElement.append(`<h1 class="text-light">Take Your Picture</h1>`);
-    captureElement.append(`<p class="text-light">Let's find you a pal!</p>`);
+    captureElement.append(`<h1 class="text-light">Say Cheese!</h1>`);
+    captureElement.append(`<p class="text-light">And let's find your pal.</p>`);
 
     var captureButtonElement = $('<button class="btn-lg btn-primary mt-3">Cachink!</button>');
     captureButtonElement.click(function() {
