@@ -1,0 +1,28 @@
+{
+  "name": "meowtch-maker",
+  "version": "1.0.0",
+  "description": "Find your prrrfect pet.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "mocha",
+    "saymeow": "echo \"Meow!!\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spacesuitdiver/meowtch-maker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spacesuitdiver/meowtch-maker/issues"
+  },
+  "homepage": "https://github.com/spacesuitdiver/meowtch-maker#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nightmare": "^3.0.1"
+  }
+}
