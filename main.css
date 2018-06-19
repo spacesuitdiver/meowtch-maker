@@ -38,6 +38,12 @@
   background: rgba(0,0,0,0.4);
 }
 
+#background-video video {
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
 .capture-view .camera {
   display: inline-block;
   border-radius: 100%;
