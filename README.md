@@ -7,8 +7,10 @@ Find your prrrfect pet.
 ## User Storie(s)
 
 AS A pet owner
+
 I WANT to upload a photo
-SO THAT I can find my perfect pet
+
+SO THAT I can find my perfect pet.
 
 ## Wireframe
 _To be added._
