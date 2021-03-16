@@ -16,5 +16,9 @@ _To be added._
 ## User Flow Diagram
 _To be added._
 
+## APIs Used
+- Petfinder
+- Faceplusplus
+
 ## Tasks
 https://github.com/spacesuitdiver/meowtch-maker/issues
